@@ -1,6 +1,5 @@
-﻿using Tabuleiro;
+﻿using TabuleiroXadrez;
 
-Posicao p = new Posicao(3, 4);
+Tabuleiro tabuleiro = new Tabuleiro(8, 8);
 
-Console.WriteLine("Posição: " + p);
 Console.ReadLine();
