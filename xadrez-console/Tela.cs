@@ -1,6 +1,6 @@
 ﻿using TabuleiroXadrez;
 
-namespace xadrez_console
+namespace XadrezConsole
 {
     internal class Tela
     {
