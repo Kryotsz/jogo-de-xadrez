@@ -17,25 +17,53 @@ namespace XadrezConsole
                 Console.Write(8 - i + " ");
                 for (int j = 0; j < tabuleiro.Colunas; j++)
                 {
-                    // se a posição no tabuleiro é igual a nulo, significa que não tem peça lá
-                    if (tabuleiro.Peca(i, j) == null)
-                    {
-                        // então imprime o sinal "-" que significa que não tem peça
-                        Console.Write("- ");
-                    }
-                    else
-                    {
-                        // chama o método pra imprimir a peça, passa a peça no tabuleiro como parâmetro
-                        ImprimirPeca(tabuleiro.Peca(i, j));
-                        // imprime um espaço no final
-                        Console.Write(" ");
-                    }
+                    // chama o método pra imprimir a peça, passa a peça no tabuleiro como parâmetro
+                    ImprimirPeca(tabuleiro.Peca(i, j));
                 }
                 // quebra a linha
                 Console.WriteLine();
             }
             // imprime a letra referente às colunas na parte debaixo do tabuleiro
             Console.WriteLine("  a b c d e f g h");
+        }
+
+        // método pra imprimir o tabuleiro na tela, recebe o tabuleiro como parâmetro
+        public static void ImprimirTabuleiro(Tabuleiro tabuleiro, bool[,] posicoesPossiveis)
+        {
+            // variáveis para controlar a cor do fundo do console
+            ConsoleColor fundoPadrao = Console.BackgroundColor;
+            ConsoleColor fundoAlterado = ConsoleColor.DarkGray;
+
+            // loop para imprimir o tabuleiro na tela
+            for (int i = 0; i < tabuleiro.Linhas; i++)
+            {
+                // imprime o número das linhas na lateral do tabuleiro
+                Console.Write(8 - i + " ");
+                for (int j = 0; j < tabuleiro.Colunas; j++)
+                {
+                    // se for uma posição possível
+                    if (posicoesPossiveis[i, j])
+                    {
+                        // a cor do fundo ficará cinza
+                        Console.BackgroundColor = fundoAlterado;
+                    }
+                    else
+                    {
+                        // a cor do fundo será a cor padrão do console
+                        Console.BackgroundColor = fundoPadrao;
+                    }
+                    // chama o método pra imprimir a peça, passa a peça no tabuleiro como parâmetro
+                    ImprimirPeca(tabuleiro.Peca(i, j));
+                    // volta a cor do fundo ao padrão do console
+                    Console.BackgroundColor = fundoPadrao;
+                }
+                // quebra a linha
+                Console.WriteLine();
+            }
+            // imprime a letra referente às colunas na parte debaixo do tabuleiro
+            Console.WriteLine("  a b c d e f g h");
+            // volta a cor do fundo ao padrão do console
+            Console.BackgroundColor = fundoPadrao;
         }
 
         public static PosicaoXadrez LerPosicaoXadrez()
@@ -49,23 +77,36 @@ namespace XadrezConsole
         // método que imprime a peça (recebe a peça por parâmetro)
         public static void ImprimirPeca(Peca peca)
         {
-            // se a cor da peça for branca
-            if (peca.Cor == Cor.Branca)
+            // se não tem peça, imprime um tracinho
+            if (peca == null)
             {
-                // imprime a peça branca na posição dela no tabuleiro
-                Console.Write(peca);
+                Console.Write("- ");
             }
             else
             {
-                // cria uma variável auxiliar para guardar a cor atual (cor padrão do console)
-                ConsoleColor aux = Console.ForegroundColor;
-                // altera a cor atual para amarelo (simboliza a peça preta)
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                // imprime a peça preta na posição dela no tabuleiro
-                Console.Write(peca);
-                // volta a cor para o padrão do console
-                Console.ForegroundColor = aux;
+                // se a cor da peça for branca
+                if (peca.Cor == Cor.Branca)
+                {
+                    // imprime a peça branca na posição dela no tabuleiro
+                    Console.Write(peca);
+                }
+                else
+                {
+                    // cria uma variável auxiliar para guardar a cor atual (cor padrão do console)
+                    ConsoleColor aux = Console.ForegroundColor;
+                    // altera a cor atual para amarelo (simboliza a peça preta)
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    // imprime a peça preta na posição dela no tabuleiro
+                    Console.Write(peca);
+                    // volta a cor para o padrão do console
+                    Console.ForegroundColor = aux;
+                }
+                // imprime um espaço em branco depois da peça
+                Console.Write(" ");
             }
+
+
+
         }
     }
 }

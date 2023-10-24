@@ -7,7 +7,9 @@ namespace JogoXadrez
     {
         // propriedades da partida de xadrez
         public Tabuleiro Tabuleiro { get; private set; }
+        // guarda o turno atual
         private int Turno;
+        // guarda o jogador que joga no momento
         private Cor JogadorAtual;
         // propriedade que determina se a partida terminou ou não
         public bool Terminada { get; private set; }

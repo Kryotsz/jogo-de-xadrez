@@ -2,7 +2,7 @@
 
 namespace TabuleiroXadrez
 {
-    internal class Peca
+    internal abstract class Peca
     {
         // propriedades da peça
         public Tabuleiro Tabuleiro { get; protected set; }
@@ -26,5 +26,8 @@ namespace TabuleiroXadrez
         {
             QtdeMovimentos++;
         }
+
+        // método abstrato de movimentos possíveis da peça
+        public abstract bool[,] MovimentosPossiveis();
     }
 }

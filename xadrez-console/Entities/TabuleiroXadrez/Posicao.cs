@@ -13,6 +13,12 @@
             Coluna = coluna;
         }
 
+        public void DefinirValores(int linha, int coluna)
+        {
+            Linha = linha;
+            Coluna = coluna;
+        }
+
         // imprime a linha e coluna na tela
         public override string ToString()
         {
