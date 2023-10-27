@@ -27,6 +27,12 @@ namespace TabuleiroXadrez
             QtdeMovimentos++;
         }
 
+        // método que decrementa em 1 o movimento da peça
+        public void DecrementarQtdeMovimentos()
+        {
+            QtdeMovimentos--;
+        }
+
         // método que irá percorrer toda matriz de movimentos possíveis e retornar true ou false caso exista ou não um movimento possível
         public bool ExisteMovimentosPossiveis()
         {

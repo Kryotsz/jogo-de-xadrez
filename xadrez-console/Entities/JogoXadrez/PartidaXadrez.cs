@@ -14,9 +14,11 @@ namespace JogoXadrez
         public Cor JogadorAtual { get; private set; }
         // propriedade que determina se a partida terminou ou não
         public bool Terminada { get; private set; }
-        // conjuntos
+        // conjunto de peças
         private HashSet<Peca> Pecas;
+        // conjunto de peças capturadas
         private HashSet<Peca> Capturadas;
+        public bool Xeque { get; private set; }
 
         public PartidaXadrez()
         {
@@ -26,6 +28,10 @@ namespace JogoXadrez
             Turno = 1;
             // jogador das peças brancas começa o jogo
             JogadorAtual = Cor.Branca;
+            // a partida não está terminada
+            Terminada = false;
+            // o Rei não está em xeque
+            Xeque = false;
             // instancia o conjunto de peças do tabuleiro
             Pecas = new HashSet<Peca>();
             // instancia o conjunto de peças capturadas
@@ -35,7 +41,7 @@ namespace JogoXadrez
         }
 
         // método que executa o movimento da peça
-        public void ExecutaMovimento(Posicao origem, Posicao destino)
+        public Peca ExecutaMovimento(Posicao origem, Posicao destino)
         {
             // peça que vai ser movimentada é retirada da origem
             Peca peca = Tabuleiro.RetirarPeca(origem);
@@ -51,12 +57,58 @@ namespace JogoXadrez
                 // adiciona a peça no conjunto de peças capturadas
                 Capturadas.Add(pecaCapturada);
             }
+            return pecaCapturada;
         }
 
+        // método para desfazer o movimento de uma peça
+        public void DesfazMovimento(Posicao origem, Posicao destino, Peca pecaCapturada)
+        {
+            // tira a peça da posição de destino
+            Peca peca = Tabuleiro.RetirarPeca(destino);
+            // chama o método para decrementar o movimento dessa peça
+            peca.DecrementarQtdeMovimentos();
+            // se uma peça foi capturada nesse movimento
+            if (pecaCapturada != null)
+            {
+                // coloca a peça capturada de volta no jogo, na posição em que ela estava
+                Tabuleiro.ColocarPeca(pecaCapturada, destino);
+                // tira a peça capturada do conjunto de peças capturadas
+                Capturadas.Remove(pecaCapturada);
+            }
+            // coloca a peça de volta na posição de origem dela
+            Tabuleiro.ColocarPeca(peca, origem);
+        }
+
+        // método para realizar a jogada do jogador
         public void RealizaJogada(Posicao origem, Posicao destino)
         {
-            ExecutaMovimento(origem, destino);
+            // chama o método para executar o movimento, passando as posições de origem e destino da peça
+            Peca pecaCapturada = ExecutaMovimento(origem, destino);
+
+            // se o movimento realizado pelo jogador atual o colocar em xeque
+            if (EstaEmXeque(JogadorAtual))
+            {
+                // chama o método para desfazer esse movimento, passando por parâmetro a origem e destino da peça movida, juntamente com uma possível peça capturada
+                DesfazMovimento(origem, destino, pecaCapturada);
+                // e lança um erro
+                throw new TabuleiroException("Você não pode se colocar em xeque!");
+            }
+
+            // se o movimento realizado pelo jogador atual, colocar o adversário em xeque
+            if (EstaEmXeque(Adversaria(JogadorAtual)))
+            {
+                // altera a variável Xeque para true
+                Xeque = true;
+            }
+            else
+            {
+                // altera para false (continua false)
+                Xeque = false;
+            }
+
+            // passa o turno
             Turno++;
+            // troca pro outro jogador
             MudaJogador();
         }
 
@@ -149,6 +201,65 @@ namespace JogoXadrez
             aux.ExceptWith(PecasCapturadas(cor));
             // retorna o conjunto aux
             return aux;
+        }
+
+        // método pra retornar a cor adversária do jogador atual
+        private Cor Adversaria(Cor cor)
+        {
+            // se a cor recebida por parâmetro for igual a branca
+            if (cor == Cor.Branca)
+            {
+                // retorna preta (cor adversária)
+                return Cor.Preta;
+            }
+            else
+            {
+                // retorna branca (cor adversária)
+                return Cor.Branca;
+            }
+        }
+
+        // método para retornar o rei da cor recebida por parâmetro
+        private Peca Rei(Cor cor)
+        {
+            // percorre o conjunto de peças em jogo daquela cor
+            foreach (Peca x in PecasEmJogo(cor))
+            {
+                // se a peça for um rei
+                if (x is Rei){
+                    // retorna o rei
+                    return x;
+                }
+            }
+            // retorna null caso não encontre nenhum rei em jogo
+            return null;
+        }
+
+        // método que verifica se o Rei está em xeque
+        public bool EstaEmXeque(Cor cor)
+        {
+            // cria a variável R que recebe o rei desta cor
+            Peca R = Rei(cor);
+            // se não tiver rei no jogo
+            if (R == null)
+            {
+                // lança um erro
+                throw new TabuleiroException($"Não tem rei da cor {cor} no tabuleiro!");
+            }
+            // percorre o conjunto de peças adversárias em jogo
+            foreach (Peca x in PecasEmJogo(Adversaria(cor)))
+            {
+                // cria uma matriz com os movimentos possíveis de cada peça
+                bool[,] matriz = x.MovimentosPossiveis();
+                // se algum movimento possível for igual a posição do Rei inimigo
+                if (matriz[R.Posicao.Linha, R.Posicao.Coluna])
+                {
+                    // Rei inimigo está em xeque
+                    return true;
+                }
+            }
+            // Rei inimigo não está em xeque
+            return false;
         }
 
         // método para colocar uma nova peça

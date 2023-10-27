@@ -7,23 +7,36 @@ namespace XadrezConsole
 {
     internal class Tela
     {
+        // método para imprimir a partida na tela
         public static void ImprimirPartida(PartidaXadrez partida)
         {
+            // chama o método para imprimir o tabuleiro
             ImprimirTabuleiro(partida.Tabuleiro);
             Console.WriteLine();
+            // imprime os conjuntos de peças capturadas na tela
             ImprimirPecasCapturadas(partida);
             Console.WriteLine();
+            // imprime o turno atual
             Console.WriteLine($"Turno: {partida.Turno}");
+            // imprime de quem é a vez
             Console.WriteLine($"Aguardando jogada: {partida.JogadorAtual}");
+            // verifica se um xeque ocorreu
+            if (partida.Xeque)
+            {
+                // avisa o jogador que houve o xeque
+                Console.WriteLine("XEQUE!");
+            }
         }
 
         // método que imprime na tela o conjunto de peças capturadas de ambas as cores
         public static void ImprimirPecasCapturadas(PartidaXadrez partida)
         {
+            // imprime na tela o conjunto de peças brancas capturadas
             Console.WriteLine("Peças capturadas: ");
             Console.Write("Brancas: ");
             ImprimirConjunto(partida.PecasCapturadas(Cor.Branca));
             Console.WriteLine();
+            // imprime na tela o conjunto de peças pretas capturadas
             Console.Write("Pretas: ");
             ConsoleColor aux = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -35,6 +48,7 @@ namespace XadrezConsole
         // método que imprime na tela os conjuntos de peças
         public static void ImprimirConjunto(HashSet<Peca> conjunto)
         {
+            // imprime um conjunto de peças dentro de colchetes
             Console.Write("[");
             foreach (Peca x in conjunto)
             {
