@@ -25,7 +25,7 @@ namespace JogoXadrez
             Posicao posicao = new Posicao(0, 0);
 
             // cima esquerda
-            posicao.DefinirValores(posicao.Linha - 1, posicao.Coluna - 1);
+            posicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna - 1);
             while (Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
             {
                 matriz[posicao.Linha, posicao.Coluna] = true;
@@ -33,11 +33,11 @@ namespace JogoXadrez
                 {
                     break;
                 }
-                posicao.DefinirValores(posicao.Linha - 1, posicao.Coluna - 1);
+                posicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna - 1);
             }
 
             // cima direita
-            posicao.DefinirValores(posicao.Linha - 1, posicao.Coluna + 1);
+            posicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna + 1);
             while (Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
             {
                 matriz[posicao.Linha, posicao.Coluna] = true;
@@ -45,11 +45,11 @@ namespace JogoXadrez
                 {
                     break;
                 }
-                posicao.DefinirValores(posicao.Linha - 1, posicao.Coluna + 1);
+                posicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna + 1);
             }
 
             // baixo direita
-            posicao.DefinirValores(posicao.Linha + 1, posicao.Coluna + 1);
+            posicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna + 1);
             while (Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
             {
                 matriz[posicao.Linha, posicao.Coluna] = true;
@@ -57,11 +57,11 @@ namespace JogoXadrez
                 {
                     break;
                 }
-                posicao.DefinirValores(posicao.Linha + 1, posicao.Coluna + 1);
+                posicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna + 1);
             }
 
             // baixo esquerda
-            posicao.DefinirValores(posicao.Linha + 1, posicao.Coluna - 1);
+            posicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna - 1);
             while (Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
             {
                 matriz[posicao.Linha, posicao.Coluna] = true;
@@ -69,7 +69,7 @@ namespace JogoXadrez
                 {
                     break;
                 }
-                posicao.DefinirValores(posicao.Linha + 1, posicao.Coluna - 1);
+                posicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna - 1);
             }
             // retorna a matriz de movimentos possíveis
             return matriz;

@@ -34,28 +34,28 @@ namespace JogoXadrez
             if (Cor == Cor.Branca)
             {
                 // 1 casa pra cima
-                posicao.DefinirValores(posicao.Linha - 1, posicao.Coluna);
+                posicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
                 if (Tabuleiro.PosicaoValida(posicao) && Livre(posicao))
                 {
                     matriz[posicao.Linha, posicao.Coluna] = true;
                 }
 
                 // 2 casas pra cima
-                posicao.DefinirValores(posicao.Linha - 2, posicao.Coluna);
+                posicao.DefinirValores(Posicao.Linha - 2, Posicao.Coluna);
                 if (Tabuleiro.PosicaoValida(posicao) && Livre(posicao) && QtdeMovimentos == 0)
                 {
                     matriz[posicao.Linha, posicao.Coluna] = true;
                 }
 
                 // cima esquerda (caso exista inimigo)
-                posicao.DefinirValores(posicao.Linha - 1, posicao.Coluna - 1);
+                posicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna - 1);
                 if (Tabuleiro.PosicaoValida(posicao) && ExisteInimigo(posicao))
                 {
                     matriz[posicao.Linha, posicao.Coluna] = true;
                 }
 
                 // cima direita (caso exista inimigo)
-                posicao.DefinirValores(posicao.Linha - 1, posicao.Coluna + 1);
+                posicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna + 1);
                 if (Tabuleiro.PosicaoValida(posicao) && ExisteInimigo(posicao))
                 {
                     matriz[posicao.Linha, posicao.Coluna] = true;
@@ -64,28 +64,28 @@ namespace JogoXadrez
             else
             {
                 // 1 casa pra baixo
-                posicao.DefinirValores(posicao.Linha + 1, posicao.Coluna);
+                posicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna);
                 if (Tabuleiro.PosicaoValida(posicao) && Livre(posicao))
                 {
                     matriz[posicao.Linha, posicao.Coluna] = true;
                 }
 
                 // 2 casas pra baixo
-                posicao.DefinirValores(posicao.Linha + 2, posicao.Coluna);
+                posicao.DefinirValores(Posicao.Linha + 2, Posicao.Coluna);
                 if (Tabuleiro.PosicaoValida(posicao) && Livre(posicao) && QtdeMovimentos == 0)
                 {
                     matriz[posicao.Linha, posicao.Coluna] = true;
                 }
 
                 // baixo esquerda (caso exista inimigo)
-                posicao.DefinirValores(posicao.Linha + 1, posicao.Coluna - 1);
+                posicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna - 1);
                 if (Tabuleiro.PosicaoValida(posicao) && ExisteInimigo(posicao))
                 {
                     matriz[posicao.Linha, posicao.Coluna] = true;
                 }
 
                 // baixo direita (caso exista inimigo)
-                posicao.DefinirValores(posicao.Linha + 1, posicao.Coluna + 1);
+                posicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna + 1);
                 if (Tabuleiro.PosicaoValida(posicao) && ExisteInimigo(posicao))
                 {
                     matriz[posicao.Linha, posicao.Coluna] = true;

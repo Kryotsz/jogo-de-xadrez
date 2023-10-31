@@ -1,5 +1,4 @@
 ﻿using JogoXadrez;
-using System.Data.Common;
 using TabuleiroXadrez;
 using TabuleiroXadrezEnums;
 

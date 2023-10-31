@@ -25,56 +25,56 @@ namespace JogoXadrez
             Posicao posicao = new Posicao(0, 0);
 
             // 2 esquerda e 1 cima
-            posicao.DefinirValores(posicao.Linha - 1, posicao.Coluna - 2);
+            posicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna - 2);
             if (Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
             {
                 matriz[posicao.Linha, posicao.Coluna] = true;
             }
 
             // 2 cima e 1 esquerda
-            posicao.DefinirValores(posicao.Linha - 2, posicao.Coluna - 1);
+            posicao.DefinirValores(Posicao.Linha - 2, Posicao.Coluna - 1);
             if (Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
             {
                 matriz[posicao.Linha, posicao.Coluna] = true;
             }
 
             // 2 cima e 1 direita
-            posicao.DefinirValores(posicao.Linha - 2, posicao.Coluna + 1);
+            posicao.DefinirValores(Posicao.Linha - 2, Posicao.Coluna + 1);
             if (Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
             {
                 matriz[posicao.Linha, posicao.Coluna] = true;
             }
 
             // 2 direita e 1 cima
-            posicao.DefinirValores(posicao.Linha - 1, posicao.Coluna + 2);
+            posicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna + 2);
             if (Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
             {
                 matriz[posicao.Linha, posicao.Coluna] = true;
             }
 
             // 2 direita e 1 baixo
-            posicao.DefinirValores(posicao.Linha + 1, posicao.Coluna - 2);
+            posicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna - 2);
             if (Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
             {
                 matriz[posicao.Linha, posicao.Coluna] = true;
             }
 
             // 2 baixo e 1 direita
-            posicao.DefinirValores(posicao.Linha + 2, posicao.Coluna + 1);
+            posicao.DefinirValores(Posicao.Linha + 2, Posicao.Coluna + 1);
             if (Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
             {
                 matriz[posicao.Linha, posicao.Coluna] = true;
             }
 
             // 2 baixo e 1 esquerda
-            posicao.DefinirValores(posicao.Linha + 2, posicao.Coluna - 1);
+            posicao.DefinirValores(Posicao.Linha + 2, Posicao.Coluna - 1);
             if (Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
             {
                 matriz[posicao.Linha, posicao.Coluna] = true;
             }
 
             // 2 esquerda e 1 baixo
-            posicao.DefinirValores(posicao.Linha + 1, posicao.Coluna - 2);
+            posicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna - 2);
             if (Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
             {
                 matriz[posicao.Linha, posicao.Coluna] = true;

@@ -1,7 +1,6 @@
 ﻿using Exceptions;
 using JogoXadrez;
 using TabuleiroXadrez;
-using TabuleiroXadrezEnums;
 using XadrezConsole;
 
 try
@@ -44,8 +43,8 @@ catch (TabuleiroException e)
 {
     Console.WriteLine(e.Message);
 }
-catch (Exception e)
-{
-    Console.WriteLine(e.Message);
-}
+//catch (Exception e)
+//{
+//    Console.WriteLine(e.Message);
+//}
 Console.ReadLine();
