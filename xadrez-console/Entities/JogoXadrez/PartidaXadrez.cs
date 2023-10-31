@@ -57,6 +57,37 @@ namespace JogoXadrez
                 // adiciona a peça no conjunto de peças capturadas
                 Capturadas.Add(pecaCapturada);
             }
+
+            // #JogadaEspecial - Roque Pequeno
+            // se a peça for um Rei, e vai se mover 2 casas pra direita, então o movimento é um Roque Pequeno
+            if (peca is Rei && destino.Coluna == origem.Coluna + 2)
+            {
+                // cria as variáveis que recebem as posiçoes de origem e destino da Torre
+                Posicao origemT = new Posicao(origem.Linha, origem.Coluna + 3);
+                Posicao destinoT = new Posicao(origem.Linha, origem.Coluna + 1);
+                // retira a Torre da posição de origem dela
+                Peca T = Tabuleiro.RetirarPeca(origemT);
+                // incrementa o movimento da Torre
+                T.IncrementarQtdeMovimentos();
+                // coloca a Torre no destino dela
+                Tabuleiro.ColocarPeca(T, destinoT);
+            }
+
+            // #JogadaEspecial - Roque Grande
+            // se a peça for um Rei, e vai se mover 2 casas pra esquerda, então o movimento é um Roque Grande
+            if (peca is Rei && destino.Coluna == origem.Coluna - 2)
+            {
+                // cria as variáveis que recebem as posiçoes de origem e destino da Torre
+                Posicao origemT = new Posicao(origem.Linha, origem.Coluna - 4);
+                Posicao destinoT = new Posicao(origem.Linha, origem.Coluna - 1);
+                // retira a Torre da posição de origem dela
+                Peca T = Tabuleiro.RetirarPeca(origemT);
+                // incrementa o movimento da Torre
+                T.IncrementarQtdeMovimentos();
+                // coloca a Torre no destino dela
+                Tabuleiro.ColocarPeca(T, destinoT);
+            }
+
             return pecaCapturada;
         }
 
@@ -77,6 +108,36 @@ namespace JogoXadrez
             }
             // coloca a peça de volta na posição de origem dela
             Tabuleiro.ColocarPeca(peca, origem);
+
+            // #JogadaEspecial - Roque Pequeno
+            // se a peça for um Rei, e vai se mover 2 casas pra direita, então o movimento é um Roque Pequeno
+            if (peca is Rei && destino.Coluna == origem.Coluna + 2)
+            {
+                // cria as variáveis que recebem as posiçoes de origem e destino da Torre
+                Posicao origemT = new Posicao(origem.Linha, origem.Coluna + 3);
+                Posicao destinoT = new Posicao(origem.Linha, origem.Coluna + 1);
+                // retira a Torre da posição de destino dela
+                Peca T = Tabuleiro.RetirarPeca(destinoT);
+                // decrementa o movimento da Torre
+                T.DecrementarQtdeMovimentos();
+                // coloca a Torre de volta na origem
+                Tabuleiro.ColocarPeca(T, origemT);
+            }
+
+            // #JogadaEspecial - Roque Grande
+            // se a peça for um Rei, e vai se mover 2 casas pra esquerda, então o movimento é um Roque Grande
+            if (peca is Rei && destino.Coluna == origem.Coluna - 2)
+            {
+                // cria as variáveis que recebem as posiçoes de origem e destino da Torre
+                Posicao origemT = new Posicao(origem.Linha, origem.Coluna - 4);
+                Posicao destinoT = new Posicao(origem.Linha, origem.Coluna - 1);
+                // retira a Torre da posição de destino dela
+                Peca T = Tabuleiro.RetirarPeca(destinoT);
+                // decrementa o movimento da Torre
+                T.DecrementarQtdeMovimentos();
+                // coloca a Torre de volta na origem
+                Tabuleiro.ColocarPeca(T, origemT);
+            }
         }
 
         // método para realizar a jogada do jogador
@@ -330,7 +391,8 @@ namespace JogoXadrez
             ColocarNovaPeca('b', 8, new Cavalo(Tabuleiro, Cor.Preta));
             ColocarNovaPeca('c', 8, new Bispo(Tabuleiro, Cor.Preta));
             ColocarNovaPeca('d', 8, new Dama(Tabuleiro, Cor.Preta));
-            ColocarNovaPeca('e', 8, new Rei(Tabuleiro, Cor.Preta));
+            // o "this" se refere a partida, já que estamos dentro dessa classe
+            ColocarNovaPeca('e', 8, new Rei(Tabuleiro, Cor.Preta, this));
             ColocarNovaPeca('f', 8, new Bispo(Tabuleiro, Cor.Preta));
             ColocarNovaPeca('g', 8, new Cavalo(Tabuleiro, Cor.Preta));
             ColocarNovaPeca('h', 8, new Torre(Tabuleiro, Cor.Preta));
@@ -348,7 +410,8 @@ namespace JogoXadrez
             ColocarNovaPeca('b', 1, new Cavalo(Tabuleiro, Cor.Branca));
             ColocarNovaPeca('c', 1, new Bispo(Tabuleiro, Cor.Branca));
             ColocarNovaPeca('d', 1, new Dama(Tabuleiro, Cor.Branca));
-            ColocarNovaPeca('e', 1, new Rei(Tabuleiro, Cor.Branca));
+            // o "this" se refere a partida, já que estamos dentro dessa classe
+            ColocarNovaPeca('e', 1, new Rei(Tabuleiro, Cor.Branca, this));
             ColocarNovaPeca('f', 1, new Bispo(Tabuleiro, Cor.Branca));
             ColocarNovaPeca('g', 1, new Cavalo(Tabuleiro, Cor.Branca));
             ColocarNovaPeca('h', 1, new Torre(Tabuleiro, Cor.Branca));

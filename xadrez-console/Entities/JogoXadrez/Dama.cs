@@ -33,7 +33,7 @@ namespace JogoXadrez
                 {
                     break;
                 }
-                posicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
+                posicao.DefinirValores(posicao.Linha - 1, posicao.Coluna);
             }
 
             // direita
@@ -45,7 +45,7 @@ namespace JogoXadrez
                 {
                     break;
                 }
-                posicao.DefinirValores(Posicao.Linha, Posicao.Coluna + 1);
+                posicao.DefinirValores(posicao.Linha, posicao.Coluna + 1);
             }
 
             // baixo
@@ -57,7 +57,7 @@ namespace JogoXadrez
                 {
                     break;
                 }
-                posicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna);
+                posicao.DefinirValores(posicao.Linha + 1, posicao.Coluna);
             }
 
             // esquerda
@@ -69,7 +69,7 @@ namespace JogoXadrez
                 {
                     break;
                 }
-                posicao.DefinirValores(Posicao.Linha, Posicao.Coluna - 1);
+                posicao.DefinirValores(posicao.Linha, posicao.Coluna - 1);
             }
 
             // cima esquerda
@@ -81,7 +81,7 @@ namespace JogoXadrez
                 {
                     break;
                 }
-                posicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna - 1);
+                posicao.DefinirValores(posicao.Linha - 1, posicao.Coluna - 1);
             }
 
             // cima direita
@@ -93,7 +93,7 @@ namespace JogoXadrez
                 {
                     break;
                 }
-                posicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna + 1);
+                posicao.DefinirValores(posicao.Linha - 1, posicao.Coluna + 1);
             }
 
             // baixo direita
@@ -105,7 +105,7 @@ namespace JogoXadrez
                 {
                     break;
                 }
-                posicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna + 1);
+                posicao.DefinirValores(posicao.Linha + 1, posicao.Coluna + 1);
             }
 
             // baixo esquerda
@@ -117,7 +117,7 @@ namespace JogoXadrez
                 {
                     break;
                 }
-                posicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna - 1);
+                posicao.DefinirValores(posicao.Linha + 1, posicao.Coluna - 1);
             }
             // retorna a matriz de movimentos possíveis
             return matriz;
