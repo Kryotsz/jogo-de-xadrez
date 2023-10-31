@@ -51,7 +51,7 @@ namespace TabuleiroXadrez
         }
 
         // método que verifica se a peça pode se mover para a posição recebida por parâmetro
-        public bool PodeMoverPara(Posicao posicao)
+        public bool MovimentoPossivel(Posicao posicao)
         {
             return MovimentosPossiveis()[posicao.Linha, posicao.Coluna];
         }
