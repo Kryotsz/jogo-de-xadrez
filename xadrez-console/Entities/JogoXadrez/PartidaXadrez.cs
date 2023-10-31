@@ -106,10 +106,19 @@ namespace JogoXadrez
                 Xeque = false;
             }
 
-            // passa o turno
-            Turno++;
-            // troca pro outro jogador
-            MudaJogador();
+            // se tiver em Xeque-mate
+            if (TesteXequeMate(Adversaria(JogadorAtual)))
+            {
+                // a partida termina
+                Terminada = true;
+            }
+            else
+            {
+                // passa o turno
+                Turno++;
+                // troca pro outro jogador
+                MudaJogador();
+            }
         }
 
         // método para validar a posição de origem da peça
@@ -262,6 +271,48 @@ namespace JogoXadrez
             return false;
         }
 
+        public bool TesteXequeMate(Cor cor)
+        {
+            // se o rei dessa cor não está em Xeque, é impossível estar em Xeque-mate
+            if (!EstaEmXeque(cor))
+            {
+                return false;
+            }
+            foreach (Peca x in PecasEmJogo(cor))
+            {
+                bool[,] matriz = x.MovimentosPossiveis();
+                // for encadeado para percorrer toda a matriz
+                for (int i = 0; i < Tabuleiro.Linhas; i++)
+                {
+                    for (int j = 0; j < Tabuleiro.Colunas; j++)
+                    {
+                        // se a matriz nessa posição estiver marcada como verdadeiro, significa que é um movimento possível
+                        if (matriz[i, j])
+                        {
+                            // cria a variável origem para armazenar a posição de origem da peça
+                            Posicao origem = x.Posicao;
+                            // cria a variável destino com a posição possível encontrada
+                            Posicao destino = new Posicao(i, j);
+                            // movimenta a peça x para a posição possível encontrada
+                            Peca pecaCapturada = ExecutaMovimento(origem, destino);
+                            // verifica se após esse movimento, o Rei ainda está em xeque
+                            bool testeXeque = EstaEmXeque(cor);
+                            // desfaz esse movimento da peça
+                            DesfazMovimento(origem, destino, pecaCapturada);
+                            // verifica se testeXeque é falso, se for, o jogo continua
+                            if (!testeXeque)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            // se nenhum movimento que salva o Rei foi encontrado através do loop
+            // o Rei está em Xeque-mate
+            return true;
+        }
+
         // método para colocar uma nova peça
         public void ColocarNovaPeca(char coluna, int linha, Peca peca)
         {
@@ -275,18 +326,11 @@ namespace JogoXadrez
         public void ColocarPecas()
         {
             ColocarNovaPeca('c', 1, new Torre(Tabuleiro, Cor.Branca));
-            ColocarNovaPeca('c', 2, new Torre(Tabuleiro, Cor.Branca));
-            ColocarNovaPeca('d', 2, new Torre(Tabuleiro, Cor.Branca));
-            ColocarNovaPeca('e', 2, new Torre(Tabuleiro, Cor.Branca));
-            ColocarNovaPeca('e', 1, new Torre(Tabuleiro, Cor.Branca));
             ColocarNovaPeca('d', 1, new Rei(Tabuleiro, Cor.Branca));
+            ColocarNovaPeca('h', 7, new Torre(Tabuleiro, Cor.Branca));
 
-            ColocarNovaPeca('c', 7, new Torre(Tabuleiro, Cor.Preta));
-            ColocarNovaPeca('c', 8, new Torre(Tabuleiro, Cor.Preta));
-            ColocarNovaPeca('d', 7, new Torre(Tabuleiro, Cor.Preta));
-            ColocarNovaPeca('e', 7, new Torre(Tabuleiro, Cor.Preta));
-            ColocarNovaPeca('e', 8, new Torre(Tabuleiro, Cor.Preta));
-            ColocarNovaPeca('d', 8, new Rei(Tabuleiro, Cor.Preta));
+            ColocarNovaPeca('a', 8, new Rei(Tabuleiro, Cor.Preta));
+            ColocarNovaPeca('b', 8, new Torre(Tabuleiro, Cor.Preta));
         }
     }
 }

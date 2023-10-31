@@ -18,13 +18,23 @@ namespace XadrezConsole
             Console.WriteLine();
             // imprime o turno atual
             Console.WriteLine($"Turno: {partida.Turno}");
-            // imprime de quem é a vez
-            Console.WriteLine($"Aguardando jogada: {partida.JogadorAtual}");
-            // verifica se um xeque ocorreu
-            if (partida.Xeque)
+            // se a partida NÃO terminou
+            if (!partida.Terminada)
             {
-                // avisa o jogador que houve o xeque
-                Console.WriteLine("XEQUE!");
+                // imprime de quem é a vez
+                Console.WriteLine($"Aguardando jogada: {partida.JogadorAtual}");
+                // verifica se um xeque ocorreu
+                if (partida.Xeque)
+                {
+                    // avisa o jogador que houve o xeque
+                    Console.WriteLine("XEQUE!");
+                }
+            }
+            else
+            {
+                // imprime na tela o fim da partida, indicando qual jogador ganhou
+                Console.WriteLine("XEQUEMATE!");
+                Console.WriteLine($"Vencedor: {partida.JogadorAtual}");
             }
         }
 
