@@ -212,6 +212,27 @@ namespace JogoXadrez
                 throw new TabuleiroException("Você não pode se colocar em xeque!");
             }
 
+            // peça que foi movida
+            Peca peca = Tabuleiro.Peca(destino);
+
+            // #jogadaEspecial - Promoção
+            if (peca is Peao)
+            {
+                if ((peca.Cor == Cor.Branca && destino.Linha == 0) || (peca.Cor == Cor.Preta && destino.Linha == 7))
+                {
+                    // a peça que vai ser promovida é tirada do tabuleiro
+                    peca = Tabuleiro.RetirarPeca(destino);
+                    // a peça é tirada do conjunto de peças em jogo
+                    Pecas.Remove(peca);
+                    // cria uma nova Dama (rainha), já que o Peão foi promovido
+                    Peca dama = new Dama(Tabuleiro, peca.Cor);
+                    // coloca a Dama (Rainha) no tabuleiro, no mesmo lugar em que o Peão estava anteriormente
+                    Tabuleiro.ColocarPeca(dama, destino);
+                    // adiciona a nova Dama (Rainha) no conjunto de peças do tabuleiro
+                    Pecas.Add(dama);
+                }
+            }
+
             // se o movimento realizado pelo jogador atual, colocar o adversário em xeque
             if (EstaEmXeque(Adversaria(JogadorAtual)))
             {
@@ -239,8 +260,6 @@ namespace JogoXadrez
             }
 
             // #JogadaEspecial - En Passant
-            Peca peca = Tabuleiro.Peca(destino);
-
             if (peca is Peao && (destino.Linha == origem.Linha - 2 || destino.Linha == origem.Linha + 2))
             {
                 VulneravelEnPassant = peca;
@@ -286,7 +305,7 @@ namespace JogoXadrez
         }
 
         // método que troca o jogador que vai jogar o próximo turno
-        private void MudaJogador() 
+        private void MudaJogador()
         {
             // se o jogador atual era as peças brancas
             if (JogadorAtual == Cor.Branca)
@@ -365,7 +384,8 @@ namespace JogoXadrez
             foreach (Peca x in PecasEmJogo(cor))
             {
                 // se a peça for um rei
-                if (x is Rei){
+                if (x is Rei)
+                {
                     // retorna o rei
                     return x;
                 }
