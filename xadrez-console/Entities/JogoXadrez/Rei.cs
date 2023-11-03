@@ -5,7 +5,7 @@ namespace JogoXadrez
 {
     internal class Rei : Peca
     {
-        // propriedade partida (para o movimento Roque ser possível)
+        // atributo partida (para o movimento Roque ser possível)
         // a classe Rei precisa "enxergar" a partida, para ver se está em Xeque ou não
         private PartidaXadrez Partida;
 

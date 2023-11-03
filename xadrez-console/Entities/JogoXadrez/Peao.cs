@@ -5,7 +5,13 @@ namespace JogoXadrez
 {
     internal class Peao : Peca
     {
-        public Peao(Tabuleiro tabuleiro, Cor cor) : base(tabuleiro, cor) { }
+        // atributo para o Peão enxergar a partida, possibilitanto enxergar as peças vulneráveis à jogada En Passant
+        private PartidaXadrez Partida;
+
+        public Peao(Tabuleiro tabuleiro, Cor cor, PartidaXadrez partida) : base(tabuleiro, cor) 
+        {
+            Partida = partida;
+        }
 
         public override string ToString()
         {
@@ -60,6 +66,27 @@ namespace JogoXadrez
                 {
                     matriz[posicao.Linha, posicao.Coluna] = true;
                 }
+
+                // #jogadaEspecial - En Passant
+                // se o Peão Branco está na única linha que pode fazer o En Passant
+                if (Posicao.Linha == 3)
+                {
+                    // variável que guarda a posição da esquerda do Peão
+                    Posicao esquerda = new Posicao(Posicao.Linha, Posicao.Coluna - 1);
+                    // se a posição à esquerda do Peão Branco é válida, se existe inimigo e se o inimigo está vulnerável à jogada En Passant
+                    if (Tabuleiro.PosicaoValida(esquerda) && ExisteInimigo(esquerda) && Tabuleiro.Peca(esquerda) == Partida.VulneravelEnPassant)
+                    {
+                        matriz[esquerda.Linha - 1, esquerda.Coluna] = true;
+                    }
+
+                    // variável que guarda a posição da direita do Peão
+                    Posicao direita = new Posicao(Posicao.Linha, Posicao.Coluna + 1);
+                    // se a posição à direita do Peão Branco é válida, se existe inimigo e se o inimigo está vulnerável à jogada En Passant
+                    if (Tabuleiro.PosicaoValida(direita) && ExisteInimigo(direita) && Tabuleiro.Peca(direita) == Partida.VulneravelEnPassant)
+                    {
+                        matriz[direita.Linha - 1, direita.Coluna] = true;
+                    }
+                }
             }
             else
             {
@@ -89,6 +116,27 @@ namespace JogoXadrez
                 if (Tabuleiro.PosicaoValida(posicao) && ExisteInimigo(posicao))
                 {
                     matriz[posicao.Linha, posicao.Coluna] = true;
+                }
+
+                // #jogadaEspecial - En Passant
+                // se o Peão Preto está na única linha que pode fazer o En Passant
+                if (Posicao.Linha == 4)
+                {
+                    // variável que guarda a posição da esquerda do Peão
+                    Posicao esquerda = new Posicao(Posicao.Linha, Posicao.Coluna - 1);
+                    // se a posição à esquerda do Peão Preto é válida, se existe inimigo e se o inimigo está vulnerável à jogada En Passant
+                    if (Tabuleiro.PosicaoValida(esquerda) && ExisteInimigo(esquerda) && Tabuleiro.Peca(esquerda) == Partida.VulneravelEnPassant)
+                    {
+                        matriz[esquerda.Linha + 1, esquerda.Coluna] = true;
+                    }
+
+                    // variável que guarda a posição da direita do Peão
+                    Posicao direita = new Posicao(Posicao.Linha, Posicao.Coluna + 1);
+                    // se a posição à direita do Peão Preto é válida, se existe inimigo e se o inimigo está vulnerável à jogada En Passant
+                    if (Tabuleiro.PosicaoValida(direita) && ExisteInimigo(direita) && Tabuleiro.Peca(direita) == Partida.VulneravelEnPassant)
+                    {
+                        matriz[direita.Linha + 1, direita.Coluna] = true;
+                    }
                 }
             }
 
