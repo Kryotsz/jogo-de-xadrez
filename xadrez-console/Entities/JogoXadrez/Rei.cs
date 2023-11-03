@@ -107,34 +107,34 @@ namespace JogoXadrez
             {
                 // #JogadaEspecial - Roque Pequeno
                 // posição que deveria estar a Torre
-                Posicao posicaoT1 = new Posicao(posicao.Linha, posicao.Coluna + 3);
+                Posicao posicaoT1 = new Posicao(Posicao.Linha, Posicao.Coluna + 3);
                 if (TesteTorreParaRoque(posicaoT1))
                 {
                     // cria variáveis para receberem as 2 posições à direita do Rei
-                    Posicao posicao1 = new Posicao(posicao.Linha, posicao.Coluna + 1);
-                    Posicao posicao2 = new Posicao(posicao.Linha, posicao.Coluna + 2);
+                    Posicao posicao1 = new Posicao(Posicao.Linha, Posicao.Coluna + 1);
+                    Posicao posicao2 = new Posicao(Posicao.Linha, Posicao.Coluna + 2);
                     // verifica se as posições à direita do Rei estão vazias
                     if (Tabuleiro.Peca(posicao1) == null && Tabuleiro.Peca(posicao2) == null)
                     {
                         // essa posição na matriz de movimentos possíveis recebe true
-                        matriz[posicao.Linha, posicao.Coluna + 2] = true;
+                        matriz[Posicao.Linha, Posicao.Coluna + 2] = true;
                     }
                 }
 
                 // #JogadaEspecial - Roque Grande
                 // posição que deveria estar a Torre
-                Posicao posicaoT2 = new Posicao(posicao.Linha, posicao.Coluna - 4);
-                if (TesteTorreParaRoque(posicaoT1))
+                Posicao posicaoT2 = new Posicao(Posicao.Linha, Posicao.Coluna - 4);
+                if (TesteTorreParaRoque(posicaoT2))
                 {
                     // cria variáveis para receberem as 3 posições à esquerda do Rei
-                    Posicao posicao1 = new Posicao(posicao.Linha, posicao.Coluna - 1);
-                    Posicao posicao2 = new Posicao(posicao.Linha, posicao.Coluna - 2);
-                    Posicao posicao3 = new Posicao(posicao.Linha, posicao.Coluna - 3);
+                    Posicao posicao1 = new Posicao(Posicao.Linha, Posicao.Coluna - 1);
+                    Posicao posicao2 = new Posicao(Posicao.Linha, Posicao.Coluna - 2);
+                    Posicao posicao3 = new Posicao(Posicao.Linha, Posicao.Coluna - 3);
                     // verifica se as posições à esquerda do Rei estão vazias
                     if (Tabuleiro.Peca(posicao1) == null && Tabuleiro.Peca(posicao2) == null && Tabuleiro.Peca(posicao3) == null)
                     {
                         // essa posição na matriz de movimentos possíveis recebe true
-                        matriz[posicao.Linha, posicao.Coluna - 2] = true;
+                        matriz[Posicao.Linha, Posicao.Coluna - 2] = true;
                     }
                 }
             }
